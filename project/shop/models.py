@@ -5,6 +5,7 @@ from .utils import unique_slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
+    photo = models.ImageField(upload_to='categories/')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
     class Meta:

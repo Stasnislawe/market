@@ -41,7 +41,7 @@
         </div>
         <div class="top__cat">
             {% for c in categories %}
-                <a href="{{ c.get_absolute_url }}" class="cat__div"><img class="top__cat__div" src="{% static 'img/categories/е1.png' %}"><span class="span-title-cat">{{ c.name }}</span></a>
+                <a href="{{ c.get_absolute_url }}" class="cat__div"><img class="top__cat__div" src="{{ c.photo.url }}"><span class="span-title-cat">{{ c.name }}</span></a>
             {% endfor %}
         </div>
 
