@@ -1,0 +1,11 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Ваша корзина пуста!{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Для оформления заказа ваша корзина не должна быть пуста!</h1>
+    <p>
+        <strong>{{ order.id }}</strong></p>
+</div>
+{% endblock %}

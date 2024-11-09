@@ -1,0 +1,58 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pageTitle">{{ product.name }}</h2>
+			</div>
+		</div>
+	</div>
+	</section>
+<section id="content">
+		<div class="container content">
+        <!-- Service Blcoks -->
+
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="about-logo">
+                                    <h3 class="left-flex"><span class="color" style="font-size:170%">{{ product.price|currency }}</span></h3>
+                                    <div class="right-flex">
+                                        <form class="buttonschecks" action="{% url 'cart_add' product.id %}" method="post">
+                                            {{ cart_product_form }}
+                                            {% csrf_token %}
+                                            <input class="light" type="submit" value="Add to cart">
+                                        </form>
+                                        <div class="cart__form"><a class="waves-effect waves-dark" href="{% url 'cart_detail' %}">Корзина {{ total_items }}{{ total_items|pluralize }}
+                                            {{ cart.get_total_price|currency }}</a></div>
+                                    </div>
+								</div>
+                                <div class="row service-v1 margin-bottom-40">
+            <div class="col-md-4 md-margin-bottom-40">
+					<div class="card small">
+                        <div class="card-image">
+                             <img class="img-responsive" src="{{ product.image.url }}" alt="">
+                        </div>
+                    </div>
+            </div>
+            {% for i in all_img %}
+			   <div class="col-md-4 md-margin-bottom-40">
+					<div class="card small">
+                        <div class="card-image">
+                             <img class="img-responsive" src="{{ i.images.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+          </div>
+        </div>
+                                <p>{{ product.description }}</p>
+							</div>
+						</div>
+</section>
+{% endblock content %}

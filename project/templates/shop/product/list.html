@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<section id="banner">
+
+	<!-- Slider -->
+        <div id="main-slider" class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="{% static 'img/slides/te3.jpg' %}" alt="" />
+                <div class="flex-caption">
+                    <h3>Expert Services</h3>
+					<p>We create the opportunities</p>
+
+                </div>
+              </li>
+              <li>
+                <img src="{% static 'img/slides/te4.webp' %}" alt="" />
+                <div class="flex-caption">
+                    <h3>Creative Touch</h3>
+					<p>Success depends on originality</p>
+
+                </div>
+              </li>
+            </ul>
+        </div>
+</section>
+<section class="dishes">
+    <div class="container">
+        <div class="search">
+                    <form class="search__form">
+                            <input class="search__input" name="name__icontains" id="id_name__icontains"  type="text" placeholder="Искать по названию">
+                            <button type="submit" class="search__button">Поиск</button>
+                    </form>
+                    <div class="cart__form"><a class="waves-effect waves-dark" href="{% url 'cart_detail' %}">Корзина {{ total_items }}{{ total_items|pluralize }}
+                {{ cart.get_total_price|currency }}</a></div>
+        </div>
+        <div class="top__cat">
+            {% for c in categories %}
+                <a href="{{ c.get_absolute_url }}" class="cat__div"><img class="top__cat__div" src="{% static 'img/categories/е1.png' %}"><span class="span-title-cat">{{ c.name }}</span></a>
+            {% endfor %}
+        </div>
+
+        <div class="moycontainer">
+            {% include 'shop/product/list-item.html' %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% load custom_filters %}
+    Your shopping cart
+{% endblock %}
+{% block content %}
+    <h1 class="center">Моя корзина</h1>
+    <div class="table">
+        <div class="table_div">
+            {% for item in cart %}
+            {% with product=item.product %}
+            <div class="div">
+                <a class="td_a" href="{{ product.get_absolute_url }}">
+                    <div>{{ product.name }}</div>
+                    <div><img class="img" src="{{ product.image.url }}"></div>
+                    <div title="Количество">Кол-во: {{ item.quantity }}</div>
+                    <div title="Стоимость за 1 единицу">{{ item.price|currency }}</div>
+                    <div title="Общая стоимость">{{ item.total_price|currency }}</div>
+                </a>
+                <a class="td" title="Удалить" href="{% url 'cart_remove' product.id %}"></a>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--        <tr>-->
+<!--            <th>Продукт</th>-->
+<!--            <th>Наименование</th>-->
+<!--            <th>Количество</th>-->
+<!--            <th>Удалить из корзины</th>-->
+<!--            <th>Цена за 1 единицу</th>-->
+<!--            <th>Цена</th>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        {% for item in cart %}-->
+<!--            {% with product=item.product %}-->
+<!--                <tr class="font-size18px">-->
+<!--                    <td class="font-size18px">-->
+<!--                        <a href="{{ product.get_absolute_url }}">-->
+<!--                            <img class="mini_img" src="-->
+<!--                                {% if product.image %}-->
+<!--                                    {{ product.image.url }}-->
+<!--                                {% else %}-->
+<!--                                    {% static 'img/no_image.png' %}-->
+<!--                                {% endif %}">-->
+<!--                        </a>-->
+<!--                    </td>-->
+<!--                    <td class="font-size18px">{{ product.name }}</td>-->
+<!--                    <td class="font-size18px">{{ item.quantity }}</td>-->
+<!--                    <td class="font-size18px"><a href="{% url 'cart_remove' product.id %}">Удалить из корзины</a></td>-->
+<!--                    <td class="font-size18px">{{ item.price|currency }}</td>-->
+<!--                    <td class="font-size18px">{{ item.total_price|currency }}</td>-->
+<!--                </tr>-->
+<!--            {% endwith %}-->
+<!--        {% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--        <tr>-->
+<!--            <td></td>-->
+<!--            <td colspan="4"></td>-->
+<!--            <td>итого:</td>-->
+<!--        </tr>-->
+<!--        <tr class="total">-->
+<!--            <td>Общая цена</td>-->
+<!--            <td colspan="4"></td>-->
+<!--            <td class="num">{{ cart.get_total_price }}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+    <div class="moycontainer2">
+        <div class="total_price">Общая стоимость <p>{{ cart.get_total_price|currency }}</p></div>
+    </div>
+    <div class="moycontainer3">
+        <div class="buttonschecks">
+            <a href="{% url 'product_list' %}" class="light2">Продолжить покупки
+                <p>Вернуться к каталогу</p>
+            </a>
+            <a href="{% url 'order_create2' %}" class="light2">Перейти к оплате
+                <p>Есть возможность доставки!</p>
+            </a>
+        </div>
+    </div>
+{% endblock %}

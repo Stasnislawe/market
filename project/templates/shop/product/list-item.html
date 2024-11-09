@@ -1,0 +1,19 @@
+{% load custom_filters %}
+{% for product in products %}
+    <a href="{{ product.get_absolute_url }}" class="col-md-4 md-margin-bottom-40">
+        <div class="card small">
+            <div class="card-image">
+                <img class="img-responsive" src="{{ product.image.url }}" alt="">
+                <span class="card-title">{{ product.name }}</span>
+                <span class="card-titleprice">{{ product.price|currency }}</span>
+            </div>
+            <div class="card-content">
+                <p>
+                    {{ product.description|truncatechars:40 }}
+                </p>
+            </div>
+        </div>
+    </a>
+{% endfor %}
+
+{% include 'pagination.html' with page=products %}

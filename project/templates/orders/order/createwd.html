@@ -1,0 +1,50 @@
+{% extends "shop/base.html" %}
+{% block title %}Checkout{% endblock %}
+{% load custom_filters %}
+
+
+{% block content %}
+<div class="moycontainer">
+    <div class="dannie">
+        <a href="{% url 'order_create' %}" class="divdelivery">Заказ с доставкой - Перейти</a>
+        <div class="dannie2">
+            <h1>Данные получателя</h1>
+            <div class="order-info">
+                <h3>Ваш заказ</h3>
+                <div>
+                    {% for item in cart %}
+                        <div class="divzakazdisplayproducts">
+                            <div>{{ item.quantity }} x {{ item.product.name|truncatechars:15 }}</div>
+                            <div >{{ item.total_price|currency }}</div>
+                            <img class="mini_img" src="{{ item.product.image.url }}">
+                        </div>
+
+                    {% endfor %}
+                </div>
+                <div class="font-size18px">
+                    Стоимость к оплате {{ cart.get_total_price|currency }}
+                </div>
+            </div>
+                <form action="" method="post" class="order-form" name="form_order">
+<!--                    {{ form.as_p }}-->
+<!--                    {% csrf_token %}-->
+                    {% csrf_token %}
+                    <div>
+                        <div>Имя</div>
+                        <input class="inp" type="text" name="first_name" maxlength="50" required id="id_first_name">
+                    </div>
+                    <div>
+                        <div>Фамилия</div>
+                        <input class="inp" type="text" name="last_name" maxlength="50" required id="id_last_name">
+                    </div>
+                    <div>
+                        <div>Номер телефона</div>
+                        <input class="inp" type="text" name="phone_number" maxlength="50" required id="id_phone_number">
+                    </div>
+                    <input class="place_order" type="submit" value="Оформить заказ">
+                </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

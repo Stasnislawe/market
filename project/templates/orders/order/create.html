@@ -1,0 +1,63 @@
+{% extends "shop/base.html" %}
+{% block title %}Checkout{% endblock %}
+{% load custom_filters %}
+
+
+{% block content %}
+<div class="moycontainer">
+    <div class="dannie">
+        <a class="divdelivery" href="{% url 'order_create2' %}">Заказ без доставки - Перейти</a>
+        <div class="dannie2">
+            <h1>Данные получателя</h1>
+            <div class="order-info">
+                <h3>Ваш заказ</h3>
+                <div>
+                    {% for item in cart %}
+                        <div class="divzakazdisplayproducts">
+                            <div>{{ item.quantity }} x {{ item.product.name }}</div>
+                            <div >{{ item.total_price|currency }}</div>
+                            <img class="mini_img" src="{{ item.product.image.url }}">
+                        </div>
+
+                    {% endfor %}
+                </div>
+                <div class="font-size18px">
+                    Стоимость к оплате {{ cart.get_total_price|currency }}
+                </div>
+                </div>
+                <form action="." method="post" class="order-form" name="form_order">
+                    {% csrf_token %}
+                    <div>
+                        <div>Имя</div>
+                        <input class="inp" type="text" name="first_name" maxlength="50" required id="id_first_name">
+                    </div>
+                    <div>
+                        <div>Фамилия</div>
+                        <input class="inp" type="text" name="last_name" maxlength="50" required id="id_last_name">
+                    </div>
+                    <div>
+                        <div>Номер телефона</div>
+                        <input class="inp" type="text" name="phone_number" maxlength="50" required id="id_phone_number">
+                    </div>
+                    <div>
+                        <div>Адрес</div>
+                        <input class="inp" type="text" name="address" maxlength="150" required id="id_address" readonly>
+                    </div>
+                    <div>
+                        <div>Стоимость доставки</div>
+                        <input class="inp" type="text" name="delivery_price" required id="id_delivery_price" readonly>
+                    </div>
+                    <div>
+                        <div>Расстояние</div>
+                        <input class="inp" type="text" name="distance" required id="id_distance" readonly>
+                    </div>
+                    <input class="place_order" type="submit" value="Оформить заказ">
+                </form>
+        </div>
+    </div>
+    <div class="oplata">
+        <div>Выберите точку доставки одним кликом по карте и поля с доставкой автоматически заполнятся!</div>
+        <div id="map" class="map"></div>
+    </div>
+</div>
+{% endblock %}
