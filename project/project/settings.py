@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv, find_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +45,10 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
+    'sign',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 SITE_ID = 1
@@ -58,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -144,3 +152,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EASY_MAPS_GOOGLE_KEY = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ___0123456789'
 
 EASY_MAPS_CENTER = (-41.3, 32)
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/accounts/index'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+load_dotenv(find_dotenv())
+
+EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = 'uvedomleniynewsportal'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # пароль от почты
+EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+DEFAULT_FROM_EMAIL = 'uvedomleniynewsportal@ya.ru'
