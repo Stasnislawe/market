@@ -4,9 +4,16 @@
 
 {% block content %}
 <div class="container">
-    <h1>Thank you</h1>
-    <p>Your order has been successfully completed. Your order number is
-        <strong>{{ order.id }}</strong>.</p>
+    <h1>Спасибо!</h1>
+    <h2>Вы оставили заказ, номер вашего заказа -
+        <strong>{{ order.id }}</strong>.</h2>
+    <script type="text/javascript">
+    function Redirect()
+    {
+        window.location="http://127.0.0.1:8000/";
+    }
+    document.write("Вы будете перенаправлены на главную страницу через 10 секунд, пожалуйста подождите..");
+    setTimeout('Redirect()', 10000);
+</script>
 </div>
-
 {% endblock %}
