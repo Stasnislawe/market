@@ -1,5 +1,15 @@
 {% extends "shop/base.html" %}
+{% load static %}
 
 {% block content %}
-    <div>{{ request.user }}</div>
+    <div class="container">
+        <div style="margin: 20px;"></div>
+			<div class="row showcase-section">
+				<div class="col-md-6">
+					<div class="about-text">
+						<h3><ya-tr-span data-index="10-0" data-type="trSpan" style="visibility: inherit !important;">Пользователь </ya-tr-span><span class="color"><ya-tr-span data-index="10-0" data-type="trSpan" style="visibility: inherit !important;">{{ request.user }}</ya-tr-span></span></h3>
+					</div>
+				</div>
+			</div>
+		</div>
 {% endblock content %}
