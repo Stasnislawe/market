@@ -8,7 +8,7 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'phone_number',
+    list_display = ['id', 'user', 'username', 'phone_number',
                     'address', 'paid',
                     'created', 'updated']
     list_filter = ['created']
@@ -24,7 +24,7 @@ class OrderWdItemInline(admin.TabularInline):
 
 
 class OrderWDAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'phone_number']
+    list_display = ['id', 'user', 'username', 'phone_number']
     list_filter = ['created']
     inlines = [OrderWdItemInline]
 
