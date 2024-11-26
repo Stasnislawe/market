@@ -1,10 +1,11 @@
 from django.db import models
 from shop.models import Product
+from django.contrib.auth.models import User
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_user')
+    username = models.CharField(max_length=100)
     address = models.CharField(max_length=250)
     phone_number = models.CharField(max_length=12)
     created = models.DateTimeField(auto_now_add=True)
@@ -39,8 +40,8 @@ class OrderItem(models.Model):
 
 
 class OrderWithoutDelivery(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orderwd_user')
+    username = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
 
