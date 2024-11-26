@@ -2,15 +2,20 @@ from django.shortcuts import render
 from .models import OrderItem, OrderItemWD
 from .forms import OrderCreateForm, WithoutDeliveryForm
 from cart.cart import Cart
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def order_create(request):
     cart = Cart(request)
 
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid() and cart:
-            order = form.save()
+            order = form.save(commit=False)
+            order.user = request.user
+            order.username = request.user.username
+            order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,
                                         product=item['product'],
@@ -29,13 +34,17 @@ def order_create(request):
     return render(request, 'orders/order/create.html', {'cart': cart, 'form': form})
 
 
+@login_required
 def order_create2(request):
     cart = Cart(request)
 
     if request.method == 'POST':
         form = WithoutDeliveryForm(request.POST)
         if form.is_valid() and cart:
-            order = form.save()
+            order = form.save(commit=False)
+            order.user = request.user
+            order.username = request.user.username
+            order.save()
             for item in cart:
                 OrderItemWD.objects.create(order=order,
                                          product=item['product'],
