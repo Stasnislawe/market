@@ -1,6 +1,8 @@
 {% extends "shop/base.html" %}
 {% block title %}Checkout{% endblock %}
 {% load custom_filters %}
+{% load crispy_forms_tags %}
+
 
 
 {% block content %}
@@ -26,7 +28,7 @@
                 </div>
                 </div>
                 <form action="." method="post" class="order-form" name="form_order">
-                    {{ form.as_p }}
+                    {{ form|crispy}}
                     {% csrf_token %}
 <!--                    <div>-->
 <!--                        <div>Имя</div>-->
