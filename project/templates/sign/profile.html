@@ -9,6 +9,17 @@
 					<div class="about-text">
 						<h3><ya-tr-span data-index="10-0" data-type="trSpan" style="visibility: inherit !important;">Пользователь </ya-tr-span><span class="color"><ya-tr-span data-index="10-0" data-type="trSpan" style="visibility: inherit !important;">{{ request.user }}</ya-tr-span></span></h3>
 					</div>
+					<div>
+						<div>Моя корзина</div>
+						{% for c in cart %}
+							{% with product=c.product %}
+						<a class="td_a" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+						<div>{{ product.price }}</div>
+						<div>{{ c.quantity }}</div>
+						<div>Общая стоимость - {{ c.total_price }}</div>
+							{% endwith %}
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 		</div>
