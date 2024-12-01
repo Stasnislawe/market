@@ -44,6 +44,8 @@ class OrderWithoutDelivery(models.Model):
     username = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    paid = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created', )
