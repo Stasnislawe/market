@@ -24,7 +24,7 @@ class OrderWdItemInline(admin.TabularInline):
 
 
 class OrderWDAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'username', 'phone_number']
+    list_display = ['id', 'user', 'username', 'phone_number', 'paid', 'created', 'updated']
     list_filter = ['created']
     inlines = [OrderWdItemInline]
 
