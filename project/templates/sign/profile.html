@@ -12,10 +12,19 @@
 					</div>
 				</div>
 			</div>
-			<h3>Моя корзина</h3>
+
 		</div>
 	<div class="table">
 		<div class="table_div">
+			{% if not cart %}
+			<div class="div">
+				<a class="td_a" href="{% url 'product_list' %}">
+					<div></div>
+					<div>Отправиться за покупками</div>
+				</a>
+			</div>
+			{% else %}
+			<h3>Моя корзина</h3>
 			{% for item in cart %}
 			{% with product=item.product %}
 			<div class="div">
@@ -30,6 +39,11 @@
 			</div>
 			{% endwith %}
 			{% endfor %}
+			{% endif %}
+			<div class="div"></div>
+			{% if not orders %}
+			<div>Вы ничего не заказывали</div>
+			{% else %}
 			<h3> Мои заказы</h3>
 			{% for order in orders %}
 			{% with ord=order.product %}
@@ -37,12 +51,14 @@
 				<a class="td_a" href="{{ product.get_absolute_url }}">
 					<div>{{ ord.name }}</div>
 					<div><img class="img" src="{{ product.image.url }}"></div>
-					<div title="Количество">Кол-во: {{ ord.quantity }}</div>
-					<div title="Стоимость за 1 единицу">{{ ord.price|currency }}</div>
+					<div title="Количество">Кол-во: {{ order.quantity }}</div>
+					<div title="Стоимость за 1 единицу">{{ order.price }}</div>
+					<div>{{ order.get_cost }}</div>
 				</a>
 			</div>
 			{% endwith %}
 			{% endfor %}
+			{% endif %}
 		</div>
 	</div>
 
