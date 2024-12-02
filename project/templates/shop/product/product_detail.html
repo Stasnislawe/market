@@ -1,6 +1,8 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 {% load custom_filters %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
 <section id="inner-headline">
@@ -23,7 +25,7 @@
                                     <h3 class="left-flex"><span class="color" style="font-size:170%">{{ product.price|currency }}</span></h3>
                                     <div class="right-flex">
                                         <form class="buttonschecks" action="{% url 'cart_add' product.id %}" method="post">
-                                            {{ cart_product_form }}
+                                            {{ cart_product_form|crispy }}
                                             {% csrf_token %}
                                             <input class="light" type="submit" value="Add to cart">
                                         </form>
